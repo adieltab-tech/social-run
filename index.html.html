@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Social Run • Registro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #0C0F12;
+      --card-bg: #161A20;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #25E285;
+      --accent-soft: rgba(37, 226, 133, 0.12);
+      --text-main: #FFFFFF;
+      --text-muted: #8E98A8;
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .app-screen {
+      width: 100%;
+      max-width: 410px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: var(--accent);
+      filter: blur(100px);
+      opacity: 0.15;
+      top: -50px;
+      right: -50px;
+      pointer-events: none;
+    }
+
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .input-field {
+      margin-bottom: 16px;
+    }
+
+    .input-field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .input-wrapper input:focus {
+      border-color: var(--accent);
+      background: rgba(37, 226, 133, 0.03);
+      box-shadow: 0 0 0 3px rgba(37, 226, 133, 0.1);
+    }
+
+    .input-wrapper input::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #072916;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+      transition: transform 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .feedback {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: none;
+      color: var(--accent);
+    }
+
+    /* Iframe oculto para evitar recargar la página */
+    #hidden_iframe {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Iframe oculto para procesar el envío sin bloqueos del navegador -->
+  <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
+
+  <div class="app-screen">
+    <div class="glow"></div>
+
+    <div class="header-tag">⚡ Social Run Club</div>
+    <h1>Únete al pelotón</h1>
+    <p class="subtitle">Regístrate para coordinar la salida, recibir las fotos y armar la playlist de la ruta.</p>
+
+    <!-- FORMULARIO DIRECTO (Reemplaza TU_URL_DE_APPS_SCRIPT_AQUI con tu enlace /exec) -->
+    <form id="runForm" 
+          action="https://script.google.com/macros/s/AKfycbwjtqK06xNQW10cbC8gDaPKJsN2Z9AUW0vC9-pjBP7KKlIYkJxGTShqIUwo-if7xP3V/exec" 
+          method="POST" 
+          target="hidden_iframe" 
+          onsubmit="handleSubmit()">
+
+      <div class="input-field">
+        <label>Nombre y Apellido *</label>
+        <div class="input-wrapper">
+          <input type="text" name="nombre" id="nombre" placeholder="Ej. Daniel Ramirez" required>
+        </div>
+      </div>
+
+      <div class="input-field">
+        <label>WhatsApp (para logística y fotos) *</label>
+        <div class="input-wrapper">
+          <input type="tel" name="telefono" id="telefono" placeholder="+52 55 0000 0000" required>
+        </div>
+      </div>
+
+      <div class="input-field">
+        <label>Instagram (opcional)</label>
+        <div class="input-wrapper">
+          <input type="text" name="instagram" id="instagram" placeholder="@tu_usuario">
+        </div>
+      </div>
+
+      <div class="input-field">
+        <label>🎵 Canción que te gustaría escuchar</label>
+        <div class="input-wrapper">
+          <input type="text" name="cancion" id="cancion" placeholder="Ej. Bob Marley">
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="btnSubmit">
+        <span>Confirmar mi lugar</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+
+      <div id="feedback" class="feedback">¡Listo! Quedas dentro del run y tu rola agregada 🎧</div>
+    </form>
+  </div>
+
+  <script>
+    function handleSubmit() {
+      const btn = document.getElementById('btnSubmit');
+      const feedback = document.getElementById('feedback');
+      
+      btn.style.opacity = '0.6';
+      btn.textContent = 'Enviando...';
+
+      // Espera 1.2 segundos para simular el envío y limpiar formulario
+      setTimeout(() => {
+        feedback.style.display = 'block';
+        document.getElementById('runForm').reset();
+        btn.style.opacity = '1';
+        btn.innerHTML = '<span>Confirmar mi lugar</span> ➔';
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
