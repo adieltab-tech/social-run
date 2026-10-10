@@ -3,240 +3,383 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Social Run • Registro</title>
+  <title>Social Run • 5K</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0C0F12;
-      --card-bg: #161A20;
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent: #25E285;
-      --accent-soft: rgba(37, 226, 133, 0.12);
-      --text-main: #FFFFFF;
-      --text-muted: #8E98A8;
-      --radius-lg: 28px;
-      --radius-md: 18px;
-      --radius-sm: 12px;
+      --primary: #9d72ff;
+      --primary-glow: rgba(157, 114, 255, 0.4);
+      --card-bg: rgba(255, 255, 255, 0.07);
+      --card-border: rgba(255, 255, 255, 0.15);
+      --input-bg: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --text-dim: rgba(255, 255, 255, 0.65);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Montserrat', -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-main);
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 20%, #402377 0%, #150d2e 45%, #080514 100%);
+      color: var(--text);
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 16px;
-    }
-
-    .app-screen {
-      width: 100%;
-      max-width: 410px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      padding: 32px 24px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      padding: 30px 14px;
+      overflow-x: hidden;
       position: relative;
-      overflow: hidden;
     }
 
-    .glow {
-      position: absolute;
-      width: 180px;
-      height: 180px;
-      background: var(--accent);
-      filter: blur(100px);
-      opacity: 0.15;
-      top: -50px;
-      right: -50px;
+    body::before {
+      content: "";
+      position: fixed;
+      top: -100px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, #ff6b9d 0%, rgba(255, 107, 157, 0) 70%);
+      opacity: 0.28;
+      border-radius: 50%;
       pointer-events: none;
+      filter: blur(60px);
     }
 
-    .header-tag {
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: -100px;
+      left: -80px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, #7e57c2 0%, rgba(126, 87, 194, 0) 70%);
+      opacity: 0.35;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(70px);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+      background: var(--card-bg);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--card-border);
+      border-radius: 36px;
+      padding: 28px 22px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill-header {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--accent-soft);
-      color: var(--accent);
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       padding: 6px 14px;
-      border-radius: 100px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #f1edff;
+      margin-bottom: 18px;
     }
 
-    h1 {
+    .pill-header span {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #4ade80;
+    }
+
+    .event-title {
       font-size: 1.85rem;
-      font-weight: 800;
-      line-height: 1.15;
+      font-weight: 700;
       letter-spacing: -0.5px;
-      margin-bottom: 8px;
+      line-height: 1.15;
+      margin-bottom: 6px;
+      background: linear-gradient(180deg, #ffffff 30%, #d8c8ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .subtitle {
-      color: var(--text-muted);
+    .event-subtitle {
       font-size: 0.88rem;
-      line-height: 1.4;
-      margin-bottom: 24px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
     }
 
-    .input-field {
-      margin-bottom: 16px;
+    .info-card {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 22px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .input-field label {
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .info-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .info-text strong {
       display: block;
+      color: var(--text);
+      font-size: 0.88rem;
+    }
+
+    .info-text span {
+      color: var(--text-dim);
+      font-size: 0.78rem;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      text-decoration: none;
+      padding: 11px 10px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #ffffff;
       font-size: 0.8rem;
       font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 6px;
+      transition: all 0.2s ease;
     }
 
-    .input-wrapper input {
+    .btn-secondary:active {
+      transform: scale(0.97);
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.12);
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input {
       width: 100%;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-sm);
       padding: 13px 16px;
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 500;
+      border-radius: 16px;
+      background: var(--input-bg);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-size: 0.92rem;
       outline: none;
       transition: all 0.2s ease;
     }
 
-    .input-wrapper input:focus {
-      border-color: var(--accent);
-      background: rgba(37, 226, 133, 0.03);
-      box-shadow: 0 0 0 3px rgba(37, 226, 133, 0.1);
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
     }
 
-    .input-wrapper input::placeholder {
-      color: rgba(255, 255, 255, 0.25);
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+      background: rgba(255, 255, 255, 0.14);
     }
 
-    .submit-btn {
+    .btn-submit {
       width: 100%;
-      background: var(--accent);
-      color: #072916;
+      padding: 15px;
+      border-radius: 20px;
       border: none;
-      border-radius: var(--radius-md);
-      padding: 16px;
-      font-size: 1rem;
-      font-weight: 800;
+      background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+      color: #ffffff;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 14px;
-      transition: transform 0.2s ease;
+      box-shadow: 0 10px 25px rgba(168, 85, 247, 0.35);
+      margin-top: 10px;
+      transition: all 0.2s ease;
     }
 
-    .submit-btn:hover {
-      transform: translateY(-2px);
+    .btn-submit:active {
+      transform: scale(0.98);
+      box-shadow: 0 5px 15px rgba(168, 85, 247, 0.2);
     }
 
-    .feedback {
+    .status-msg {
+      display: none;
       text-align: center;
-      margin-top: 16px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      display: none;
-      color: var(--accent);
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.35);
+      margin-top: 14px;
+      animation: fadeIn 0.3s ease;
     }
 
-    /* Iframe oculto para evitar recargar la página */
-    #hidden_iframe {
-      display: none;
+    .status-msg h4 {
+      color: #4ade80;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .status-msg p {
+      font-size: 0.84rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.4;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Iframe oculto para procesar el envío sin bloqueos del navegador -->
-  <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleIframeLoad()"></iframe>
 
-  <div class="app-screen">
-    <div class="glow"></div>
+  <div class="container">
+    <div class="pill-header">
+      <span></span> Social Run • 5K Night
+    </div>
 
-    <div class="header-tag">⚡ Social Run Club</div>
-    <h1>Únete al pelotón</h1>
-    <p class="subtitle">Regístrate para coordinar la salida, recibir las fotos y armar la playlist de la ruta.</p>
+    <h1 class="event-title">Únete al pelotón</h1>
+    <p class="event-subtitle">Asegura tu lugar para rodar juntos y armar la playlist.</p>
 
-    <!-- FORMULARIO DIRECTO (Reemplaza TU_URL_DE_APPS_SCRIPT_AQUI con tu enlace /exec) -->
+    <div class="info-card">
+      <div class="info-item">
+        <div class="info-icon">📅</div>
+        <div class="info-text">
+          <strong>31 de Octubre, 2026</strong>
+          <span>18:30 hrs • Salida puntual</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div class="info-text">
+          <strong>Sucursal BYD Azcapotzalco</strong>
+          <span>Distancia: 5 Kilómetros</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-grid">
+      <a class="btn-secondary" 
+         href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Social+Run+5K+-+BYD+Azcapotzalco&dates=20261031T183000/20261031T203000&details=Social+Run+5K.+Salida+desde+Sucursal+BYD+Azcapotzalco.&location=Sucursal+BYD+Azcapotzalco" 
+         target="_blank">
+        🗓️ Calendy / Google
+      </a>
+
+      <a class="btn-secondary" 
+         href="https://wa.me/525535191379?text=%C2%A1Hola!%20Tengo%20dudas%20o%20quiero%20m%C3%A1s%20detalles%20del%20Social%20Run%205K%20en%20BYD%20Azcapotzalco." 
+         target="_blank">
+        💬 WhatsApp
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
     <form id="runForm" 
           action="https://script.google.com/macros/s/AKfycbwjtqK06xNQW10cbC8gDaPKJsN2Z9AUW0vC9-pjBP7KKlIYkJxGTShqIUwo-if7xP3V/exec" 
           method="POST" 
           target="hidden_iframe" 
           onsubmit="handleSubmit()">
-
-      <div class="input-field">
+      
+      <div class="form-group">
         <label>Nombre y Apellido *</label>
-        <div class="input-wrapper">
-          <input type="text" name="nombre" id="nombre" placeholder="Ej. Daniel Ramirez" required>
-        </div>
+        <input type="text" name="nombre" placeholder="Ej. Adiel Tabárez" required>
       </div>
 
-      <div class="input-field">
-        <label>WhatsApp (para logística y fotos) *</label>
-        <div class="input-wrapper">
-          <input type="tel" name="telefono" id="telefono" placeholder="+52 55 0000 0000" required>
-        </div>
+      <div class="form-group">
+        <label>WhatsApp / Teléfono *</label>
+        <input type="tel" name="telefono" placeholder="+52 55 1234 5678" required>
       </div>
 
-      <div class="input-field">
-        <label>Instagram (opcional)</label>
-        <div class="input-wrapper">
-          <input type="text" name="instagram" id="instagram" placeholder="@tu_usuario">
-        </div>
+      <div class="form-group">
+        <label>Instagram (Opcional)</label>
+        <input type="text" name="instagram" placeholder="@tu_usuario">
       </div>
 
-      <div class="input-field">
-        <label>🎵 Canción que te gustaría escuchar</label>
-        <div class="input-wrapper">
-          <input type="text" name="cancion" id="cancion" placeholder="Ej. Bob Marley">
-        </div>
+      <div class="form-group">
+        <label>Canción para la ruta</label>
+        <input type="text" name="cancion" placeholder="Canción y artista">
       </div>
 
-      <button type="submit" class="submit-btn" id="btnSubmit">
-        <span>Confirmar mi lugar</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <button type="submit" class="btn-submit" id="submitBtn">
+        Confirmar mi lugar ⚡
       </button>
-
-      <div id="feedback" class="feedback">¡Listo! Quedas dentro del run y tu rola agregada 🎧</div>
     </form>
+
+    <div class="status-msg" id="statusMsg">
+      <h4>¡Registro confirmado! 🎉</h4>
+      <p>Nos vemos el 31 de octubre a las 18:30 hrs en BYD Azcapotzalco.</p>
+    </div>
   </div>
 
   <script>
-    function handleSubmit() {
-      const btn = document.getElementById('btnSubmit');
-      const feedback = document.getElementById('feedback');
-      
-      btn.style.opacity = '0.6';
-      btn.textContent = 'Enviando...';
+    var isSubmitting = false;
 
-      // Espera 1.2 segundos para simular el envío y limpiar formulario
-      setTimeout(() => {
-        feedback.style.display = 'block';
-        document.getElementById('runForm').reset();
-        btn.style.opacity = '1';
-        btn.innerHTML = '<span>Confirmar mi lugar</span> ➔';
-      }, 1200);
+    function handleSubmit() {
+      isSubmitting = true;
+      var btn = document.getElementById('submitBtn');
+      btn.innerText = "Registrando...";
+      btn.style.opacity = "0.7";
+      btn.disabled = true;
+    }
+
+    function handleIframeLoad() {
+      if (isSubmitting) {
+        document.getElementById('runForm').style.display = 'none';
+        document.getElementById('statusMsg').style.display = 'block';
+      }
     }
   </script>
 </body>
