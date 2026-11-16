@@ -2,444 +2,652 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Social Run • 5K</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07060c">
+  <meta name="color-scheme" content="dark">
+  <title>Social Run 5K Night · BYD Azcapotzalco</title>
+  <meta name="description" content="Social Run 5K Night. 31 de octubre, 18:30 hrs en BYD Azcapotzalco. Regístrate y elige la canción para la ruta.">
+  <meta property="og:title" content="Social Run · 5K Night">
+  <meta property="og:description" content="31 Oct · 18:30 hrs · BYD Azcapotzalco. Asegura tu lugar.">
+  <meta property="og:image" content="assets/rising-party.webp">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --primary: #9d72ff;
-      --primary-glow: rgba(157, 114, 255, 0.4);
-      --card-bg: rgba(255, 255, 255, 0.07);
-      --card-border: rgba(255, 255, 255, 0.15);
-      --input-bg: rgba(255, 255, 255, 0.08);
-      --text: #ffffff;
-      --text-dim: rgba(255, 255, 255, 0.65);
+      --bg: #07060c;
+      --bg-2: #0e0b18;
+      --surface: rgba(255, 255, 255, 0.045);
+      --surface-2: rgba(255, 255, 255, 0.07);
+      --line: rgba(255, 255, 255, 0.09);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --text: #f6f4ff;
+      --muted: rgba(236, 232, 255, 0.62);
+      --faint: rgba(236, 232, 255, 0.38);
+      --accent: #c8ff3d;
+      --accent-ink: #0b0d02;
+      --accent-glow: rgba(200, 255, 61, 0.35);
+      --violet: #8b5cf6;
+      --violet-soft: rgba(139, 92, 246, 0.18);
+      --danger: #ff6b81;
+      --radius-xl: 32px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --display: 'Unbounded', 'Plus Jakarta Sans', system-ui, sans-serif;
+      --body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at 20% 20%, #402377 0%, #150d2e 45%, #080514 100%);
+      min-height: 100dvh;
+      background: var(--bg);
       color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+      padding: max(20px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 24px 14px;
-      overflow-x: hidden;
+    }
+
+    /* ---------- Ambient background ---------- */
+    .ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .ambient .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.55; }
+    .orb-1 { width: 520px; height: 520px; top: -220px; left: 50%; transform: translateX(-60%);
+             background: radial-gradient(circle, #6d3df5 0%, transparent 65%); animation: drift 18s var(--ease) infinite alternate; }
+    .orb-2 { width: 380px; height: 380px; bottom: -160px; right: -120px;
+             background: radial-gradient(circle, #ff4f8b 0%, transparent 65%); opacity: 0.28 !important; animation: drift 22s var(--ease) infinite alternate-reverse; }
+    .orb-3 { width: 300px; height: 300px; bottom: 10%; left: -160px;
+             background: radial-gradient(circle, #a3e635 0%, transparent 65%); opacity: 0.16 !important; }
+    .grain {
+      position: absolute; inset: -50%; opacity: 0.07; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    @keyframes drift { to { transform: translate(-40%, 40px) scale(1.08); } }
+
+    /* ---------- Layout ---------- */
+    .shell { position: relative; z-index: 1; width: 100%; max-width: 440px; }
+
+    .card {
       position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.03) 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12);
+      overflow: hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: -100px;
-      right: -80px;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, #ff6b9d 0%, rgba(255, 107, 157, 0) 70%);
-      opacity: 0.28;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(60px);
-    }
+    .reveal { opacity: 0; transform: translateY(14px); animation: rise 0.8s var(--ease) forwards; }
+    .reveal:nth-child(2) { animation-delay: 0.06s; }
+    .reveal:nth-child(3) { animation-delay: 0.12s; }
+    .reveal:nth-child(4) { animation-delay: 0.18s; }
+    .reveal:nth-child(5) { animation-delay: 0.24s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
 
-    body::after {
-      content: "";
-      position: fixed;
-      bottom: -100px;
-      left: -80px;
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, #7e57c2 0%, rgba(126, 87, 194, 0) 70%);
-      opacity: 0.35;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(70px);
-    }
+    /* ---------- Hero ---------- */
+    .hero { padding: 22px 22px 24px; position: relative; }
 
-    .container {
-      width: 100%;
-      max-width: 430px;
-      background: var(--card-bg);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid var(--card-border);
-      border-radius: 36px;
-      padding: 26px 20px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      position: relative;
-      z-index: 1;
+    .brands {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 26px;
     }
-
-    /* Barra de logos */
-    .brand-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
-      margin-bottom: 18px;
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand small {
+      display: block; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--faint); line-height: 1.2;
     }
+    .brand b { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+    .brand-organizer img { width: 40px; height: 53px; object-fit: contain; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.5)); transform: rotate(-4deg); }
+    .brand-sponsor { flex-direction: row-reverse; text-align: right; }
+    .brand-sponsor img { width: 66px; height: auto; opacity: 0.92; }
+    .brand-x { color: var(--faint); font-size: 0.75rem; flex-shrink: 0; }
 
-    .brand-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      flex: 1;
-    }
-
-    .brand-label {
-      font-size: 0.62rem;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      color: var(--text-dim);
-      font-weight: 600;
-    }
-
-    .brand-logo {
-      height: 36px;
-      max-width: 120px;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .brand-divider {
-      width: 1px;
-      height: 30px;
-      background: rgba(255, 255, 255, 0.15);
-      margin: 0 6px;
-    }
-
-    .pill-header {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #f1edff;
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 12px 6px 10px; border-radius: 999px;
+      background: rgba(200,255,61,0.08); border: 1px solid rgba(200,255,61,0.22);
+      color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
       margin-bottom: 16px;
     }
-
-    .pill-header span {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      background: #4ade80;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #4ade80;
+    .pulse { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .pulse::after {
+      content: ""; position: absolute; inset: -4px; border-radius: 50%;
+      border: 1.5px solid var(--accent); animation: ping 1.8s var(--ease) infinite;
     }
+    @keyframes ping { from { transform: scale(0.5); opacity: 1; } to { transform: scale(1.8); opacity: 0; } }
 
-    .event-title {
-      font-size: 1.85rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      line-height: 1.15;
-      margin-bottom: 6px;
-      background: linear-gradient(180deg, #ffffff 30%, #d8c8ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .title {
+      font-family: var(--display); font-weight: 800;
+      font-size: clamp(2rem, 9vw, 2.55rem); line-height: 1.02; letter-spacing: -0.035em;
+      margin-bottom: 12px;
     }
-
-    .event-subtitle {
-      font-size: 0.86rem;
-      color: var(--text-dim);
-      margin-bottom: 20px;
+    .title .hl {
+      background: linear-gradient(100deg, var(--accent) 10%, #7dffb0 55%, #b49bff 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
+    .lead { color: var(--muted); font-size: 0.95rem; max-width: 34ch; margin-bottom: 22px; }
 
-    .info-card {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 22px;
-      padding: 16px 18px;
-      margin-bottom: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    /* Stats */
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      background: rgba(0,0,0,0.22); overflow: hidden;
     }
-
-    .info-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .stat { padding: 14px 10px 13px; text-align: center; position: relative; }
+    .stat + .stat::before {
+      content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 1px; background: var(--line);
     }
+    .stat-value { font-family: var(--display); font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; line-height: 1.1; }
+    .stat-value sup { font-size: 0.6em; font-weight: 500; color: var(--muted); margin-left: 2px; vertical-align: 0.45em; }
+    .stat-label { margin-top: 5px; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
 
-    .info-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
+    /* Location */
+    .location {
+      display: flex; align-items: center; gap: 12px; margin-top: 10px;
+      padding: 12px 12px 12px 14px; border-radius: var(--radius-lg);
+      background: var(--surface); border: 1px solid var(--line);
     }
-
-    .info-text strong {
-      display: block;
-      color: var(--text);
-      font-size: 0.88rem;
+    .icon-tile {
+      width: 38px; height: 38px; flex-shrink: 0; border-radius: 12px;
+      display: grid; place-items: center; background: var(--violet-soft); color: #c4b5fd;
     }
-
-    .info-text span {
-      color: var(--text-dim);
-      font-size: 0.78rem;
+    .location-text { flex: 1; min-width: 0; }
+    .location-text strong { display: block; font-size: 0.9rem; font-weight: 700; }
+    .location-text span { display: block; font-size: 0.78rem; color: var(--muted); }
+    .chip-link {
+      display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;
+      padding: 8px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+      color: var(--text); text-decoration: none; background: var(--surface-2); border: 1px solid var(--line-strong);
+      transition: background 0.2s, transform 0.2s var(--ease);
     }
+    .chip-link:hover { background: rgba(255,255,255,0.12); }
+    .chip-link:active { transform: scale(0.96); }
 
-    .action-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 22px;
+    /* Countdown */
+    .countdown {
+      display: none; margin-top: 10px; padding: 12px 14px; border-radius: var(--radius-lg);
+      background: linear-gradient(90deg, rgba(139,92,246,0.14), rgba(200,255,61,0.06));
+      border: 1px solid var(--line);
+      align-items: center; justify-content: space-between; gap: 10px;
     }
+    .countdown.is-on { display: flex; }
+    .countdown-label { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
+    .countdown-units { display: flex; gap: 6px; }
+    .cd-unit { min-width: 44px; text-align: center; padding: 5px 6px; border-radius: 10px; background: rgba(0,0,0,0.3); }
+    .cd-unit b { display: block; font-family: var(--display); font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .cd-unit span { display: block; font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
 
-    .btn-secondary {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      text-decoration: none;
-      padding: 11px 10px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
+    /* Quick actions */
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .btn-ghost {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 48px; padding: 10px 12px; border-radius: var(--radius-md);
+      background: var(--surface); border: 1px solid var(--line-strong);
+      color: var(--text); text-decoration: none; font-size: 0.84rem; font-weight: 700;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s var(--ease);
     }
+    .btn-ghost:hover { background: var(--surface-2); border-color: rgba(255,255,255,0.24); }
+    .btn-ghost:active { transform: scale(0.97); }
+    .btn-ghost svg { flex-shrink: 0; }
+    .btn-ghost.wa svg { color: #4ade80; }
+    .btn-ghost.cal svg { color: #c4b5fd; }
 
-    .btn-secondary:active {
-      transform: scale(0.97);
-      background: rgba(255, 255, 255, 0.16);
+    /* Ticket perforation */
+    .perf { position: relative; height: 0; border-top: 1.5px dashed rgba(255,255,255,0.12); margin: 0 22px; }
+    .perf::before, .perf::after {
+      content: ""; position: absolute; top: -13px; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--bg); box-shadow: inset 0 0 0 1px var(--line);
     }
+    .perf::before { left: -36px; }
+    .perf::after { right: -36px; }
 
-    .divider {
-      height: 1px;
-      background: rgba(255, 255, 255, 0.12);
-      margin-bottom: 20px;
+    /* ---------- Form ---------- */
+    .panel { padding: 24px 22px 24px; }
+    .panel-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; }
+    .panel-title { font-family: var(--display); font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    .panel-meta { font-size: 0.75rem; color: var(--faint); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+
+    .field { margin-bottom: 14px; }
+    .field-label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 7px; padding-left: 2px;
     }
-
-    .form-group {
-      margin-bottom: 14px;
+    .field-label .opt { font-size: 0.7rem; font-weight: 500; color: var(--faint); }
+    .control { position: relative; }
+    .control svg {
+      position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+      color: var(--faint); pointer-events: none; transition: color 0.2s;
     }
-
-    label {
-      display: block;
-      font-size: 0.76rem;
-      font-weight: 600;
-      color: var(--text-dim);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .control input {
+      width: 100%; height: 54px; padding: 0 16px 0 46px;
+      border-radius: var(--radius-md); border: 1px solid var(--line-strong);
+      background: rgba(0,0,0,0.28); color: var(--text);
+      font: 500 1rem/1 var(--body); outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      -webkit-appearance: none; appearance: none;
     }
-
-    input {
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: 16px;
-      background: var(--input-bg);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-      font-size: 0.92rem;
-      outline: none;
-      transition: all 0.2s ease;
+    .control input::placeholder { color: rgba(236,232,255,0.3); font-weight: 400; }
+    .control input:hover { border-color: rgba(255,255,255,0.24); }
+    .control input:focus { border-color: var(--accent); background: rgba(0,0,0,0.38); box-shadow: 0 0 0 4px rgba(200,255,61,0.12); }
+    .control:focus-within svg { color: var(--accent); }
+    .control input:-webkit-autofill {
+      -webkit-text-fill-color: var(--text);
+      -webkit-box-shadow: 0 0 0 1000px #14111e inset;
+      transition: background-color 9999s;
     }
+    .field.is-invalid input { border-color: var(--danger); box-shadow: 0 0 0 4px rgba(255,107,129,0.12); }
+    .field.is-invalid svg { color: var(--danger); }
+    .field-error { display: none; margin-top: 6px; padding-left: 2px; font-size: 0.76rem; color: var(--danger); font-weight: 600; }
+    .field.is-invalid .field-error { display: block; animation: rise 0.3s var(--ease); }
+    .field-hint { margin-top: 6px; padding-left: 2px; font-size: 0.74rem; color: var(--faint); }
 
-    input::placeholder {
-      color: rgba(255, 255, 255, 0.35);
+    .btn-primary {
+      position: relative; width: 100%; height: 58px; margin-top: 8px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      border: 0; border-radius: 18px; cursor: pointer;
+      background: var(--accent); color: var(--accent-ink);
+      font: 800 1rem/1 var(--body); letter-spacing: 0.01em;
+      box-shadow: 0 14px 34px -10px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -2px 0 rgba(0,0,0,0.12);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s, filter 0.2s;
+      overflow: hidden;
     }
-
-    input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-glow);
-      background: rgba(255, 255, 255, 0.14);
+    .btn-primary::after {
+      content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%;
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.55), transparent);
+      transform: skewX(-20deg); animation: shine 4.5s var(--ease) infinite 1.5s;
     }
-
-    .btn-submit {
-      width: 100%;
-      padding: 15px;
-      border-radius: 20px;
-      border: none;
-      background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
-      color: #ffffff;
-      font-size: 0.98rem;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(168, 85, 247, 0.35);
-      margin-top: 10px;
-      transition: all 0.2s ease;
+    @keyframes shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+    .btn-primary:hover { filter: brightness(1.05); box-shadow: 0 18px 40px -10px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -2px 0 rgba(0,0,0,0.12); }
+    .btn-primary:active { transform: scale(0.985); }
+    .btn-primary:focus-visible, .btn-ghost:focus-visible, .chip-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .btn-primary .arrow { transition: transform 0.25s var(--ease); }
+    .btn-primary:hover .arrow { transform: translateX(3px); }
+    .btn-primary.is-loading { pointer-events: none; }
+    .btn-primary.is-loading .label, .btn-primary.is-loading .arrow { opacity: 0; }
+    .btn-primary.is-loading::after { display: none; }
+    .spinner {
+      display: none; position: absolute; width: 22px; height: 22px; border-radius: 50%;
+      border: 2.5px solid rgba(11,13,2,0.25); border-top-color: var(--accent-ink); animation: spin 0.7s linear infinite;
     }
+    .btn-primary.is-loading .spinner { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .btn-submit:active {
-      transform: scale(0.98);
-      box-shadow: 0 5px 15px rgba(168, 85, 247, 0.2);
+    .form-note { margin-top: 14px; text-align: center; font-size: 0.74rem; color: var(--faint); display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .form-alert {
+      display: none; margin-top: 12px; padding: 12px 14px; border-radius: 14px;
+      background: rgba(255,107,129,0.1); border: 1px solid rgba(255,107,129,0.3);
+      font-size: 0.82rem; color: #ffd0d8;
     }
+    .form-alert.is-on { display: block; }
+    .form-alert a { color: #fff; font-weight: 700; }
 
-    .status-msg {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      border-radius: 22px;
-      background: rgba(74, 222, 128, 0.12);
-      border: 1px solid rgba(74, 222, 128, 0.35);
-      margin-top: 14px;
-      animation: fadeIn 0.3s ease;
+    /* ---------- Success ---------- */
+    .success { display: none; padding: 30px 22px 26px; text-align: center; }
+    .success.is-on { display: block; animation: rise 0.6s var(--ease); }
+    .check {
+      width: 76px; height: 76px; margin: 0 auto 18px; border-radius: 50%;
+      display: grid; place-items: center; background: var(--accent); color: var(--accent-ink);
+      box-shadow: 0 0 0 10px rgba(200,255,61,0.1), 0 0 0 22px rgba(200,255,61,0.05), 0 20px 50px -10px var(--accent-glow);
+      animation: pop 0.6s var(--ease) both 0.1s;
     }
-
-    .status-msg h4 {
-      color: #4ade80;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
+    .check path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: draw 0.5s var(--ease) forwards 0.45s; }
+    @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .success h2 { font-family: var(--display); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 8px; }
+    .success p { color: var(--muted); font-size: 0.92rem; max-width: 30ch; margin: 0 auto 20px; }
+    .pass {
+      text-align: left; border-radius: var(--radius-lg); border: 1px solid var(--line);
+      background: rgba(0,0,0,0.25); padding: 4px 16px; margin-bottom: 14px;
     }
+    .pass-row { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; font-size: 0.84rem; }
+    .pass-row + .pass-row { border-top: 1px solid var(--line); }
+    .pass-row span { color: var(--faint); font-weight: 600; white-space: nowrap; }
+    .pass-row b { font-weight: 700; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .success .actions { margin-top: 0; }
 
-    .status-msg p {
-      font-size: 0.84rem;
-      color: rgba(255, 255, 255, 0.85);
-      line-height: 1.4;
+    /* ---------- Footer ---------- */
+    .foot { text-align: center; margin-top: 18px; font-size: 0.72rem; color: var(--faint); letter-spacing: 0.02em; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    @media (min-width: 520px) {
+      body { align-items: center; padding-top: 40px; padding-bottom: 40px; }
+      .hero, .panel, .success { padding-left: 28px; padding-right: 28px; }
+      .perf { margin: 0 28px; }
+      .perf::before { left: -42px; } .perf::after { right: -42px; }
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width: 360px) {
+      .brand b { display: none; }
+      .stat-value { font-size: 1.05rem; }
+      .cd-unit { min-width: 38px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+      .check path { stroke-dashoffset: 0; }
     }
   </style>
 </head>
 <body>
 
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleIframeLoad()"></iframe>
-
-  <div class="container">
-    <!-- Bloque de Logos -->
-    <div class="brand-header">
-      <div class="brand-item">
-        <span class="brand-label">Organiza</span>
-        <img src="Imagen%20de%20ChatGPT%2010%20oct%202026%2C%2003_15_17.png" alt="Rising Reggae" class="brand-logo">
-      </div>
-      <div class="brand-divider"></div>
-      <div class="brand-item">
-        <span class="brand-label">Patrocinador</span>
-        <img src="im%C3%A1genes%20(8).jpg" alt="BYD Azcapotzalco" class="brand-logo">
-      </div>
-    </div>
-
-    <!-- Píldora superior -->
-    <div class="pill-header">
-      <span></span> Social Run • 5K Night
-    </div>
-
-    <h1 class="event-title">Únete al pelotón</h1>
-    <p class="event-subtitle">Asegura tu lugar para rodar juntos y armar la playlist.</p>
-
-    <!-- Información del Evento -->
-    <div class="info-card">
-      <div class="info-item">
-        <div class="info-icon">📅</div>
-        <div class="info-text">
-          <strong>31 de Octubre, 2026</strong>
-          <span>18:30 hrs • Salida puntual</span>
-        </div>
-      </div>
-      <div class="info-item">
-        <div class="info-icon">📍</div>
-        <div class="info-text">
-          <strong>Sucursal BYD Azcapotzalco</strong>
-          <span>Distancia: 5 Kilómetros</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Botones de Acción Inmediata -->
-    <div class="action-grid">
-      <a class="btn-secondary" 
-         href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Social+Run+5K+-+BYD+Azcapotzalco&dates=20261031T183000/20261031T203000&details=Social+Run+5K.+Salida+desde+Sucursal+BYD+Azcapotzalco.&location=Sucursal+BYD+Azcapotzalco" 
-         target="_blank">
-        🗓️ Calendy / Google
-      </a>
-
-      <a class="btn-secondary" 
-         href="https://wa.me/525535191379?text=%C2%A1Hola!%20Tengo%20dudas%20o%20quiero%20m%C3%A1s%20detalles%20del%20Social%20Run%205K%20en%20BYD%20Azcapotzalco." 
-         target="_blank">
-        💬 WhatsApp
-      </a>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Formulario de Registro -->
-    <form id="runForm" 
-          action="https://script.google.com/macros/s/AKfycbwjtqK06xNQW10cbC8gDaPKJsN2Z9AUW0vC9-pjBP7KKlIYkJxGTShqIUwo-if7xP3V/exec" 
-          method="POST" 
-          target="hidden_iframe" 
-          onsubmit="handleSubmit()">
-      
-      <div class="form-group">
-        <label>Nombre y Apellido *</label>
-        <input type="text" name="nombre" placeholder="Ej. Adiel Tabárez" required>
-      </div>
-
-      <div class="form-group">
-        <label>WhatsApp / Teléfono *</label>
-        <input type="tel" name="telefono" placeholder="+52 55 1234 5678" required>
-      </div>
-
-      <div class="form-group">
-        <label>Instagram (Opcional)</label>
-        <input type="text" name="instagram" placeholder="@tu_usuario">
-      </div>
-
-      <div class="form-group">
-        <label>Canción para la ruta</label>
-        <input type="text" name="cancion" placeholder="Canción y artista">
-      </div>
-
-      <button type="submit" class="btn-submit" id="submitBtn">
-        Confirmar mi lugar ⚡
-      </button>
-    </form>
-
-    <div class="status-msg" id="statusMsg">
-      <h4>¡Registro confirmado! 🎉</h4>
-      <p>Nos vemos el 31 de octubre a las 18:30 hrs en BYD Azcapotzalco.</p>
-    </div>
+  <div class="ambient" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grain"></div>
   </div>
 
+  <iframe name="hidden_iframe" id="hidden_iframe" title="Envío del registro" style="display:none;" onload="window.handleIframeLoad && handleIframeLoad()"></iframe>
+
+  <main class="shell">
+    <article class="card">
+
+      <!-- ===== Hero ===== -->
+      <header class="hero">
+        <div class="brands reveal">
+          <div class="brand brand-organizer">
+            <img src="assets/rising-party.webp" alt="Rising Party" width="40" height="53">
+            <div><small>Organiza</small><b>Rising Party</b></div>
+          </div>
+          <span class="brand-x" aria-hidden="true">×</span>
+          <div class="brand brand-sponsor">
+            <img src="assets/byd-logo-white.png" alt="BYD" width="66" height="13">
+            <div><small>Patrocina</small><b>Azcapotzalco</b></div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <span class="eyebrow"><span class="pulse" aria-hidden="true"></span>Social Run · 5K Night · Cupo limitado</span>
+          <h1 class="title">Únete al <span class="hl">pelotón</span></h1>
+          <p class="lead">Corre 5K con la comunidad bajo las luces de la ciudad. Aparta tu lugar y elige la canción que sonará en la ruta.</p>
+        </div>
+
+        <div class="reveal">
+          <div class="stats" role="list">
+            <div class="stat" role="listitem">
+              <div class="stat-value">31 Oct</div>
+              <div class="stat-label">Sábado</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat-value">18:30<sup>h</sup></div>
+              <div class="stat-label">Salida</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat-value">5<sup>km</sup></div>
+              <div class="stat-label">Distancia</div>
+            </div>
+          </div>
+
+          <div class="location">
+            <div class="icon-tile" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            </div>
+            <div class="location-text">
+              <strong>Sucursal BYD Azcapotzalco</strong>
+              <span>Punto de salida y meta</span>
+            </div>
+            <a class="chip-link" href="https://www.google.com/maps/search/?api=1&query=BYD+Azcapotzalco" target="_blank" rel="noopener">
+              Mapa
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </div>
+
+          <div class="countdown" id="countdown" aria-live="off">
+            <span class="countdown-label">Faltan</span>
+            <div class="countdown-units">
+              <div class="cd-unit"><b id="cdD">00</b><span>días</span></div>
+              <div class="cd-unit"><b id="cdH">00</b><span>hrs</span></div>
+              <div class="cd-unit"><b id="cdM">00</b><span>min</span></div>
+              <div class="cd-unit"><b id="cdS">00</b><span>seg</span></div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <a class="btn-ghost cal" target="_blank" rel="noopener"
+               href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Social+Run+5K+-+BYD+Azcapotzalco&dates=20261031T183000/20261031T203000&details=Social+Run+5K.+Salida+desde+Sucursal+BYD+Azcapotzalco.&location=Sucursal+BYD+Azcapotzalco">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M12 13v4M10 15h4"/></svg>
+              Agendar
+            </a>
+            <a class="btn-ghost wa" target="_blank" rel="noopener"
+               href="https://wa.me/525535191379?text=%C2%A1Hola!%20Tengo%20dudas%20o%20quiero%20m%C3%A1s%20detalles%20del%20Social%20Run%205K%20en%20BYD%20Azcapotzalco.">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+              Dudas
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div class="perf" aria-hidden="true"></div>
+
+      <!-- ===== Registro ===== -->
+      <section class="panel" id="formPanel" aria-labelledby="formTitle">
+        <div class="panel-head">
+          <h2 class="panel-title" id="formTitle">Tu registro</h2>
+          <span class="panel-meta">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            1 minuto
+          </span>
+        </div>
+
+        <form id="runForm" novalidate
+              action="https://script.google.com/macros/s/AKfycbwjtqK06xNQW10cbC8gDaPKJsN2Z9AUW0vC9-pjBP7KKlIYkJxGTShqIUwo-if7xP3V/exec"
+              method="POST"
+              target="hidden_iframe">
+
+          <div class="field" data-field="nombre">
+            <label class="field-label" for="nombre">Nombre y apellido</label>
+            <div class="control">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+              <input id="nombre" type="text" name="nombre" placeholder="Ej. María López" autocomplete="name" autocapitalize="words" required>
+            </div>
+            <p class="field-error" id="nombreErr">Escribe tu nombre y apellido.</p>
+          </div>
+
+          <div class="field" data-field="telefono">
+            <label class="field-label" for="telefono">WhatsApp</label>
+            <div class="control">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18h2"/></svg>
+              <input id="telefono" type="tel" name="telefono" placeholder="55 1234 5678" autocomplete="tel" inputmode="tel" required>
+            </div>
+            <p class="field-error" id="telefonoErr">Ingresa un número de 10 dígitos.</p>
+            <p class="field-hint">Te enviaremos los detalles de la salida.</p>
+          </div>
+
+          <div class="field" data-field="instagram">
+            <label class="field-label" for="instagram">Instagram <span class="opt">Opcional</span></label>
+            <div class="control">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+              <input id="instagram" type="text" name="instagram" placeholder="@tu_usuario" autocomplete="off" autocapitalize="none" spellcheck="false">
+            </div>
+          </div>
+
+          <div class="field" data-field="cancion">
+            <label class="field-label" for="cancion">Canción para la ruta <span class="opt">Opcional</span></label>
+            <div class="control">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <input id="cancion" type="text" name="cancion" placeholder="Canción — Artista" autocomplete="off">
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="submitBtn">
+            <span class="label">Confirmar mi lugar</span>
+            <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+
+          <div class="form-alert" id="formAlert" role="alert">
+            No pudimos confirmar tu registro. Inténtalo de nuevo o
+            <a href="https://wa.me/525535191379?text=Hola%2C%20quiero%20registrarme%20al%20Social%20Run%205K." target="_blank" rel="noopener">escríbenos por WhatsApp</a>.
+          </div>
+
+          <p class="form-note">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            Tus datos solo se usan para este evento.
+          </p>
+        </form>
+      </section>
+
+      <!-- ===== Confirmación ===== -->
+      <section class="success" id="statusMsg" role="status" aria-live="polite">
+        <div class="check" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        </div>
+        <h2 id="successTitle">¡Estás dentro!</h2>
+        <p>Tu lugar en el pelotón está confirmado. Llega 15 minutos antes para el calentamiento.</p>
+
+        <div class="pass">
+          <div class="pass-row"><span>Corredor</span><b id="passName">—</b></div>
+          <div class="pass-row"><span>Fecha</span><b>Sáb 31 Oct · 18:30 hrs</b></div>
+          <div class="pass-row"><span>Salida</span><b>BYD Azcapotzalco</b></div>
+          <div class="pass-row" id="passSongRow" hidden><span>Tu canción</span><b id="passSong"></b></div>
+        </div>
+
+        <div class="actions">
+          <a class="btn-ghost cal" target="_blank" rel="noopener"
+             href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Social+Run+5K+-+BYD+Azcapotzalco&dates=20261031T183000/20261031T203000&details=Social+Run+5K.+Salida+desde+Sucursal+BYD+Azcapotzalco.&location=Sucursal+BYD+Azcapotzalco">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>
+            Agendar
+          </a>
+          <button type="button" class="btn-ghost" id="shareBtn" style="cursor:pointer;font-family:inherit;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 13v5a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-5"/></svg>
+            <span id="shareLabel">Invitar amigos</span>
+          </button>
+        </div>
+      </section>
+    </article>
+
+    <p class="foot">Rising Party × BYD Azcapotzalco · Social Run 2026</p>
+  </main>
+
   <script>
-    var isSubmitting = false;
+    (function () {
+      var EVENT_DATE = new Date('2026-10-31T18:30:00-06:00'); // Hora de CDMX
 
-    function handleSubmit() {
-      isSubmitting = true;
+      var form = document.getElementById('runForm');
       var btn = document.getElementById('submitBtn');
-      btn.innerText = "Registrando...";
-      btn.style.opacity = "0.7";
-      btn.disabled = true;
-    }
+      var alertBox = document.getElementById('formAlert');
+      var isSubmitting = false;
+      var timeoutId = null;
 
-    function handleIframeLoad() {
-      if (isSubmitting) {
-        document.getElementById('runForm').style.display = 'none';
-        document.getElementById('statusMsg').style.display = 'block';
+      /* ---------- Cuenta regresiva ---------- */
+      var cd = document.getElementById('countdown');
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+      function tick() {
+        var diff = EVENT_DATE - new Date();
+        if (diff <= 0) { cd.classList.remove('is-on'); return false; }
+        cd.classList.add('is-on');
+        var s = Math.floor(diff / 1000);
+        document.getElementById('cdD').textContent = pad(Math.floor(s / 86400));
+        document.getElementById('cdH').textContent = pad(Math.floor(s % 86400 / 3600));
+        document.getElementById('cdM').textContent = pad(Math.floor(s % 3600 / 60));
+        document.getElementById('cdS').textContent = pad(s % 60);
+        return true;
       }
-    }
+      if (tick()) { var timer = setInterval(function () { if (!tick()) clearInterval(timer); }, 1000); }
+
+      /* ---------- Validación ---------- */
+      var rules = {
+        nombre: function (v) { return v.trim().split(/\s+/).filter(Boolean).length >= 2 || v.trim().length >= 3; },
+        telefono: function (v) { var d = v.replace(/\D/g, ''); return d.length >= 10 && d.length <= 13; }
+      };
+      function setInvalid(name, bad) {
+        var f = form.querySelector('[data-field="' + name + '"]');
+        var input = form.elements[name];
+        f.classList.toggle('is-invalid', bad);
+        input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+        if (bad) input.setAttribute('aria-describedby', name + 'Err'); else input.removeAttribute('aria-describedby');
+      }
+      function validate() {
+        var firstBad = null;
+        Object.keys(rules).forEach(function (name) {
+          var ok = rules[name](form.elements[name].value);
+          setInvalid(name, !ok);
+          if (!ok && !firstBad) firstBad = form.elements[name];
+        });
+        return firstBad;
+      }
+      Object.keys(rules).forEach(function (name) {
+        form.elements[name].addEventListener('input', function () {
+          var f = form.querySelector('[data-field="' + name + '"]');
+          if (f.classList.contains('is-invalid') && rules[name](this.value)) setInvalid(name, false);
+        });
+      });
+
+      // Instagram: agrega @ automáticamente
+      var ig = form.elements.instagram;
+      ig.addEventListener('blur', function () {
+        var v = ig.value.trim().replace(/^@+/, '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/\/.*$/, '');
+        ig.value = v ? '@' + v : '';
+      });
+
+      /* ---------- Envío ---------- */
+      form.addEventListener('submit', function (e) {
+        ig.dispatchEvent(new Event('blur'));
+        var bad = validate();
+        if (bad) { e.preventDefault(); bad.focus(); return; }
+        alertBox.classList.remove('is-on');
+        isSubmitting = true;
+        btn.classList.add('is-loading');
+        btn.setAttribute('aria-busy', 'true');
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(function () {
+          if (!isSubmitting) return;
+          isSubmitting = false;
+          btn.classList.remove('is-loading');
+          btn.removeAttribute('aria-busy');
+          alertBox.classList.add('is-on');
+        }, 20000);
+      });
+
+      window.handleIframeLoad = function () {
+        if (!isSubmitting) return;
+        isSubmitting = false;
+        clearTimeout(timeoutId);
+
+        var name = form.elements.nombre.value.trim();
+        var first = name.split(/\s+/)[0] || '';
+        var song = form.elements.cancion.value.trim();
+        document.getElementById('successTitle').textContent = first ? '¡Estás dentro, ' + first + '!' : '¡Estás dentro!';
+        document.getElementById('passName').textContent = name || '—';
+        if (song) {
+          document.getElementById('passSong').textContent = song;
+          document.getElementById('passSongRow').hidden = false;
+        }
+
+        document.getElementById('formPanel').style.display = 'none';
+        document.querySelector('.perf').style.display = 'none';
+        var ok = document.getElementById('statusMsg');
+        ok.classList.add('is-on');
+        ok.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (navigator.vibrate) navigator.vibrate(30);
+      };
+
+      /* ---------- Compartir ---------- */
+      document.getElementById('shareBtn').addEventListener('click', function () {
+        var data = {
+          title: 'Social Run · 5K Night',
+          text: 'Me registré al Social Run 5K Night en BYD Azcapotzalco (31 Oct, 18:30). ¡Corre conmigo!',
+          url: location.href
+        };
+        if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+        var label = document.getElementById('shareLabel');
+        var done = function () { label.textContent = '¡Enlace copiado!'; setTimeout(function () { label.textContent = 'Invitar amigos'; }, 2200); };
+        if (navigator.clipboard) navigator.clipboard.writeText(data.text + ' ' + data.url).then(done, function () {});
+        else window.open('https://wa.me/?text=' + encodeURIComponent(data.text + ' ' + data.url), '_blank');
+      });
+    })();
   </script>
 </body>
 </html>
